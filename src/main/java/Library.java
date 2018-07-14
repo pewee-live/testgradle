@@ -5,6 +5,7 @@ public class Library {
     public boolean someLibraryMethod() {
         System.out.print("return true");
         System.getProperties();
+        System.gc();
         return true;
     }
 }
