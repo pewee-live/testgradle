@@ -5,7 +5,7 @@ import java.util.Properties;
  */
 public class Library {
     public boolean someLibraryMethod() {
-        System.out.print("return true ");
+        System.out.print("return aaaa true ");
         Properties properties = System.getProperties();
         System.gc();
         return true;
