@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pewee.dao.TestDao">
+  <resultMap id="BaseResultMap" type="testEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, other
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_pewee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_pewee
+    order by id asc
+  </select>
+	
+	
+	<!-- keyProperty为javabean的id -->
+  <insert id="insert" parameterType="testEntity">
+    insert into test_pewee (id, name, other
+      )
+    values (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- keyProperty为javabean的id -->
+  <insert id="batchinsert" parameterType="java.util.List">
+   <foreach collection="list" item="testEntity" index="index" separator=";">
+    insert into test_pewee (id, name, other
+      )
+   
+    values (#{testEntity.id,jdbcType=INTEGER},#{testEntity.name,jdbcType=VARCHAR}, #{testEntity.other,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  
+  
+  <update id="updateBatch" parameterType="java.util.List">
+  <foreach collection="list" item="testEntity" separator=";">
+    update test_pewee
+    set 
+      name = #{testEntity.name,jdbcType=VARCHAR},
+      other = #{testEntity.other,jdbcType=VARCHAR}
+    where id = #{testEntity.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

@@ -1,0 +1,51 @@
+# 服务器配置
+server:
+  name: peweetest	
+  port: 8888
+
+# spring 数据源配置 springboot会自动加载spring.datasource.*相关配置，数据源就会自动注入到sqlSessionFactory中
+spring:
+  datasource:
+    # 主数据源
+    url: jdbc:mysql:///selectid?characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: 000
+    driver-class-name: com.mysql.jdbc.Driver
+     # 配置bdcp 连接池属性
+    dbcp2:
+        initial-size: 5
+        min-idle: 5
+        max-wait-millis: 60000
+        max-total: 30
+        time-between-eviction-runs-millis: 300000
+        validation-query: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        pool-prepared-statements: true
+        max-open-prepared-statements: 20
+
+
+  # springMVC 配置
+   #mvc:
+     #view:
+      # prefix: /WEB-INF/jsp/
+      # suffix: .jsp
+
+# 日志配置文件地址
+#logging:
+# config: classpath:static/logback.xml
+
+# 使用log4j2
+logging:
+  config: classpath:log4j2.xml
+  level:
+    org: INFO
+    springfox: INFO
+    netscape: INFO
+    net: INFO
+  
+#mybatis config 使用注解配置mapping的xml 配置自动启别名的路径
+mybatis:
+  typeAliasesPackage: pewee.entity
+  #mapperLocations: classpath:mapper/*.xml
